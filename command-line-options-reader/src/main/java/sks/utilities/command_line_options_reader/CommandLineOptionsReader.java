@@ -8,15 +8,35 @@ import sks.utilities.command_line_options_reader.base.model.rules.RuleConstants;
 
 import java.util.*;
 
+/**
+ * {@link CommandLineOptionsReader} use to read options on command line. The object can be built to use different option configurations to read from using its builder
+ * @author suhas
+ * @since 1.0
+ */
 public class CommandLineOptionsReader
 {
+    /**
+     * The options this class is to be initialized with
+     */
     private final Map<String, Option> configuredOptions;
+
+    /**
+     * single-letter options this class is to be initialized with
+     */
     private final Map<String, Option> singleLetterOptions;
+
 
     private final Map<String, Map<String, Option>> rules;
 
+    /**
+     * the main pluggable parser that'll be used to parse command line
+     */
     private final Parser<String, Map<String, Option>> commandLineParser;
 
+    /**
+     * {@link CommandLineOptionsReader} can only be built by using its builder {@link CommandLineOptionsReaderBuilder}
+     * @param commandLineOptionsReaderBuilder {@link CommandLineOptionsReaderBuilder builder} that initializes {@link CommandLineOptionsReader}
+     */
     private CommandLineOptionsReader(final CommandLineOptionsReaderBuilder commandLineOptionsReaderBuilder) {
         this.configuredOptions = commandLineOptionsReaderBuilder.options;
         this.singleLetterOptions = commandLineOptionsReaderBuilder.singleLetterOptions;
