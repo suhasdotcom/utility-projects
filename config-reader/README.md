@@ -16,3 +16,52 @@ To install in your project just add the following in POM:
 </dependency>
 ```
 
+## Configuring class file:
+configure the properties file:
+```
+retry=1
+multiple=2.5
+name="Suhas Srivastava"
+clazz=first
+Other.name=Suyog Srivastava
+```
+
+configure class with class name as Config* as such:
+```
+public class Config
+{
+    public static final CONFIG_FILE_PATH = "relative-path-to-config-file";
+    public static int retry;
+    public static double multiple;
+    public static String name;
+    public static String clazz;
+    public static class Other
+    {
+        public static String name;
+    }
+}
+```
+
+use the configurations in code as:
+```
+import {your.package.structure}.Config
+...
+
+int retryCount = Config.retry;
+String otherName = Config.Other.name;
+```
+
+in main:
+```java
+import {your.package.structure}.Config;
+import sks.utilities.config_reader.ConfigReader;
+
+public class SampleDriver {
+    public static void main(String[] args) {
+        ConfigReader.startReading(Config);
+        ...
+    }
+}
+```
+
+of course this kind of configuration is limited as you cannot name your config file's keys as per any java keyword.
