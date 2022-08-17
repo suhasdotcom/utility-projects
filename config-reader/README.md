@@ -9,7 +9,7 @@ A config-reader is required which'll poll config file in a lightweight thread an
 
 ## Include in your project:
 To install in your project just add the following in POM:
-```
+```xml
 <dependency>
     <groupId>sks.utilities</groupId>
     <artifactId>config-reader</artifactId>
@@ -18,7 +18,7 @@ To install in your project just add the following in POM:
 
 ## Configuring class file:
 configure the properties file:
-```
+```properties
 retry=1
 multiple=2.5
 name="Suhas Srivastava"
@@ -27,7 +27,7 @@ Other.name=Suyog Srivastava
 ```
 
 configure class with class name as Config* as such:
-```
+```java
 public class Config
 {
     public static final CONFIG_FILE_PATH = "relative-path-to-config-file";
@@ -43,7 +43,7 @@ public class Config
 ```
 
 use the configurations in code as:
-```
+```java
 import {your.package.structure}.Config
 ...
 
