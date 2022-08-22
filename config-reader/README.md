@@ -28,9 +28,9 @@ Other.name=Suyog Srivastava
 
 configure class with class name as Config* as such:
 ```java
+@ConfigFilePath("relative-path-to-config-file")
 public class Config
 {
-    public static final CONFIG_FILE_PATH = "relative-path-to-config-file";
     public static int retry;
     public static double multiple;
     public static String name;
