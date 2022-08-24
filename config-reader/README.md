@@ -65,3 +65,7 @@ public class SampleDriver {
 ```
 
 of course this kind of configuration is limited as you cannot name your config file's keys as per any java keyword.
+
+Oncoming: 
+1) Authorize the config modifier person/token before config change.
+2) Maintain a history of config change.
