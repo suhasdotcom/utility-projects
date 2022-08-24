@@ -5,7 +5,7 @@ A configuration once read can only be changed after the configured program is re
 This has caused problems such as hot-fixes which don't even need hot-fixing in code but was only required because a configuration change was needed.
 
 ## Solution:
-A config-reader is required which'll poll config file in a lightweight thread and update all the configured values so that hot-fixing just for a configuration change shouldn't be required.
+A config-reader is required which'll poll config file in a lightweight daemon thread and update all the configured values so that hot-fixing just for a configuration change shouldn't be required.
 
 ## Include in your project:
 To install in your project just add the following in POM:
@@ -17,48 +17,68 @@ To install in your project just add the following in POM:
 ```
 
 ## Configuring class file:
-configure the properties file:
+configure the json, yaml, xml, properties file (illustration):
 ```properties
 retry=1
 multiple=2.5
 name="Suhas Srivastava"
 clazz=first
 Other.name=Suyog Srivastava
+other.inner.size = 1
 ```
 
-configure class with class name as Config* as such:
+configure configuration class:
 ```java
 @ConfigFilePath("relative-path-to-config-file")
-public class Config
+public class ConfigClass
 {
-    public static int retry;
+    public static int retry;            // all entries are public static so that you don't need to create unnecessary objects
     public static double multiple;
     public static String name;
     public static String clazz;
-    public static class Other
+    public static class Other           // one way to specify property grouping {see Other.name in the config file}
     {
         public static String name;
     }
+    public static int otherInnerSize;   // other.inner.size converted to otherInnerSize. Another way to specify grouping
 }
 ```
 
 use the configurations in code as:
 ```java
-import {your.package.structure}.Config
-...
+import {your-package-name}.ConfigClass;
 
-int retryCount = Config.retry;
-String otherName = Config.Other.name;
+int retryCount = ConfigClass.retry;
+String otherName = ConfigClass.Other.name;
 ```
 
+or an interface can also be used and wired. 
+Interface format:
+
+```java
+import sks.utilities.config_reader.annotations.ConfigFilePath;
+
+@ConfigFilePath("relative-path-to-config-file")
+public interface ConfigInterface
+{
+    int retry();
+    int multiple();
+    String name();
+    String clazz();
+    String otherName(); // other.name converted to otherName
+}
+```
 in main:
 ```java
-import {your.package.structure}.Config;
 import sks.utilities.config_reader.ConfigReader;
 
 public class SampleDriver {
+    @WiredConfig
+    ConfigInterface configInterface;
+    
     public static void main(String[] args) {
-        ConfigReader.startReading(Config);
+        ConfigReader.startReading(ConfigInterface.class);
+        int retries = configInterface.retry();
         ...
     }
 }
