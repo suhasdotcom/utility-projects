@@ -18,7 +18,7 @@ public class ConfigReader
         classes.forEach(ConfigReader::startReading);
     }
 
-    public static void startReading(final Class<?>[] classes) {
+    public static void startReading(final Class<?> ... classes) {
         for(final Class<?> clazz: classes)
             startReading(clazz);
     }
