@@ -1,5 +1,7 @@
 package sks.utilities.config_reader;
 
+import sks.utilities.config_reader.annotations.ConfigFilePath;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,10 +10,17 @@ import java.util.stream.Stream;
 public class ConfigReader
 {
     public static void startReading(final Class<?> configDescriptor) {
-        for(Field field: configDescriptor.getDeclaredFields())
+        for(final Field field: configDescriptor.getDeclaredFields())
             System.out.println(field);
 
         Arrays.stream(configDescriptor.getDeclaredClasses()).map(Class::getDeclaredFields).flatMap(Stream::of).forEach(System.out::println);
+        System.out.println(configDescriptor.getDeclaredAnnotation(ConfigFilePath.class).value());
+        try {
+            configDescriptor.getDeclaredField("retry").set(null, 1);
+            System.out.println(configDescriptor.getDeclaredField("retry"));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void startReading(final Collection<Class<?>> classes) {

@@ -1,7 +1,21 @@
 package sks.utilities.config_reader;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-class ConfigReaderTest {
+@DisplayName("ConfigReader should")
+class ConfigReaderTest
+{
+    @Nested
+    @DisplayName("Get correct config file")
+    class GetCorrectConfigFile
+    {
+        @Test
+        @DisplayName("path taken up for config file should be correct")
+        void testPathPickedUpForConfigFile()
+        {
 
+        }
+    }
 }
