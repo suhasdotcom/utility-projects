@@ -84,7 +84,25 @@ public class SampleDriver {
 }
 ```
 
-of course this kind of configuration is limited as you cannot name your config file's keys as per any java keyword.
+of course this kind of configuration is limited as you cannot name your config file's keys as per any java keywords.
+
+## Providing configuration file's path to your class/interface
+
+```java
+import sks.utilities.config_reader.annotations.ConfigFilePath;
+
+@ConfigFilePath('app-config.cfg')               // assumes config file is in mvn like path of src/main/resources or src/test/resources for tests
+public class ConfigClassExampleOne {}
+
+@ConfigFilePath('dir/app-config.properties')    // assumes config file is in mvn like path having one more internal directory (dir) src/main/resources/dir/ or src/test/resources/dir/ for tests
+public class ConfigClassExampleTwo {}
+
+@ConfigFilePath(':src/main/resources/app-config.json')    // assumes config from project's root, so for a project named `config-reader` this annotated path is config-reader/src/main/resources/app-config.json
+public class ConfigClassExampleThree {}
+
+@ConfigFilePath('~/Applications/Config-Reader/src/main/resources/app-config.json')    // assumes config file from absolute path, i.e. any path starting from [A-Z]:/ (windows drives paths like C:/, D:\) or [~, /] (unix home and root paths) will be considered absolute paths
+public interface ConfigInterfaceExampleOne {}
+```
 
 Oncoming: 
 1) Authorize the config modifier person/token before config change (currently this can be done by unix user groups).
