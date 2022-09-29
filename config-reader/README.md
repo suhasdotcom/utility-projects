@@ -79,7 +79,7 @@ public class SampleDriver {
     public static void main(String[] args) {
         ConfigReader.startReading(ConfigInterface.class);
         int retries = configInterface.retry();
-        ...
+        // ... remainder
     }
 }
 ```
