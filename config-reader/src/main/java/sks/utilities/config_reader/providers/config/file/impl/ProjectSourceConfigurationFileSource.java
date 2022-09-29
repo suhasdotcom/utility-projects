@@ -8,7 +8,7 @@ public class ProjectSourceConfigurationFileSource implements ConfigurationFileSo
 {
 
     @Override
-    public String getConfiguration() {
+    public String getConfigurationSource() {
         return null;
     }
 

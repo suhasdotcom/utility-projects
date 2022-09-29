@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class MavenLikeConfigurationFileSource implements ConfigurationFileSourceProvider {
 
     @Override
-    public String getConfiguration() {
+    public String getConfigurationSource() {
         return null;
     }
 
