@@ -91,10 +91,10 @@ of course this kind of configuration is limited as you cannot name your config f
 ```java
 import sks.utilities.config_reader.annotations.ConfigFilePath;
 
-@ConfigFilePath('app-config.cfg')               // assumes config file is in mvn like path of src/main/resources or src/test/resources for tests
+@ConfigFilePath('app-config.cfg')               // assumes config file is in mvn like path of src/main/resources
 public class ConfigClassExampleOne {}
 
-@ConfigFilePath('dir/app-config.properties')    // assumes config file is in mvn like path having one more internal directory (dir) src/main/resources/dir/ or src/test/resources/dir/ for tests
+@ConfigFilePath('dir/app-config.properties')    // assumes config file is in mvn like path having one more internal directory (dir) src/main/resources/dir/
 public class ConfigClassExampleTwo {}
 
 @ConfigFilePath(':src/main/resources/app-config.json')    // assumes config from project's root, so for a project named `config-reader` this annotated path is config-reader/src/main/resources/app-config.json
