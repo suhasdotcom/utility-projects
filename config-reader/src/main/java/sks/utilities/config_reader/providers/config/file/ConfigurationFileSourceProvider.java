@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public enum ConfigurationFileSourceProvider implements ConfigurationSourceProvider
 {
-    MAIN_CLASSPATH_LIKE(path -> Pattern.matches("[^~/:][a-zA-Z0-9,-./]+", path),
+    MAIN_CLASSPATH_LIKE(path -> Pattern.matches("[^~/:][a-zA-Z0-9,-./_]+", path),
             path -> Path.of(getProjectDir(), "src", "main", "resources", path)),
 
     PROJECT_SOURCE(path -> Pattern.matches(":[a-zA-Z0-9,-./\\\\]+", path),
