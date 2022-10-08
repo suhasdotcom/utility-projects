@@ -13,10 +13,10 @@ public enum ConfigurationFileSourceProvider implements ConfigurationSourceProvid
     MAIN_CLASSPATH_LIKE(path -> Pattern.matches("[^~/:][a-zA-Z0-9,-./_]+", path),
             path -> Path.of(getProjectDir(), "src", "main", "resources", path)),
 
-    PROJECT_SOURCE(path -> Pattern.matches(":[a-zA-Z0-9,-./\\\\]+", path),
+    PROJECT_SOURCE(path -> Pattern.matches(":[a-zA-Z0-9,-./\\\\_]+", path),
             path -> Path.of(getProjectDir(), path.replace(":", ""))),
 
-    ABSOLUTE_PATH(path -> Pattern.matches("(([~/])|([a-zA-z]{1}?:))[a-zA-Z0-9,-./\\\\]+", path),
+    ABSOLUTE_PATH(path -> Pattern.matches("(([~/])|([a-zA-z]{1}?:))[a-zA-Z0-9,-./\\\\_]+", path),
             Path::of);
 
     private final Function<String, Path> configurationFileSourceFunc;
