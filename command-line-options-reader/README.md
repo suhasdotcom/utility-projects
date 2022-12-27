@@ -8,7 +8,7 @@ Read command line arguments in as you like, i.e..
 
 ## Include in your project:
 To install in your project just add the following in POM:
-```
+```xml
 <dependency>
     <groupId>sks.utilities</groupId>
     <artifactId>command-line-options-reader</artifactId>
@@ -16,16 +16,25 @@ To install in your project just add the following in POM:
 ```
 
 ## Initialize command line options:
-```
-this.reader = new CommandLineOptionsReader.CommandLineOptionsReaderBuilder()
+
+```java
+import sks.utilities.command_line_options_reader.CommandLineOptionsReader;
+import sks.utilities.command_line_options_reader.base.Option;
+
+public class CommandLineOptionsReaderExample {
+
+    public static void main(String[] args) {
+        CommandLineOptionsReader reader = new CommandLineOptionsReader.CommandLineOptionsReaderBuilder()
                 .addOption("first").isValued().isRequired()
                 .addOption("second").mustOnlyContainValues("1", "2", "3").withSingleLetterOption("s")
-                    .build();
-                    
-thid.reader.getCommandLineParser().parse(String.join(" ", args);
+                .build();
+        
+        Map <String, Option> parsedOptions = this.reader.getCommandLineParser().parse(String.join(" ", args));
+    }
+}
 ```
 
 ## Help during run:
-```
+```shell
 java {YourApplicationName} --help
 ```
