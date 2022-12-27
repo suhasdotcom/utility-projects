@@ -29,11 +29,13 @@ other.inner.size = 1
 
 configure configuration class:
 ```java
+package your.package_name;
+
 @ConfigFilePath("relative-path-to-config-file")
 public class ConfigClass
 {
     public static int retry;            // all entries are public static so that you don't need to create unnecessary objects
-    public static double multiple;
+    public static double multiple = 1;  // provide a default value
     public static String name;
     public static String clazz;
     public static class Other           // one way to specify property grouping {see Other.name in the config file}
@@ -46,45 +48,37 @@ public class ConfigClass
 
 use the configurations in code as:
 ```java
-import {your-package-name}.ConfigClass;
+import your.package_name.ConfigClass;
 
-int retryCount = ConfigClass.retry;
-String otherName = ConfigClass.Other.name;
-```
+public class ConfigClassUsageExample {
+    int retryCount = ConfigClass.retry;
+    String otherName = ConfigClass.Other.name;
 
-or an interface can also be used and wired. 
-Interface format:
-
-```java
-import sks.utilities.config_reader.annotations.ConfigFilePath;
-
-@ConfigFilePath("relative-path-to-config-file")
-public interface ConfigInterface
-{
-    int retry();
-    int multiple();
-    String name();
-    String clazz();
-    String otherName(); // other.name converted to otherName
-}
-```
-in main:
-```java
-import sks.utilities.config_reader.ConfigReader;
-
-public class SampleDriver {
-    @WiredConfig
-    ConfigInterface configInterface;
-    
-    public static void main(String[] args) {
-        ConfigReader.startReading(ConfigInterface.class);
-        int retries = configInterface.retry();
+    public void businessMethod() {
+        final String clazz = ConfigClass.clazz;
         // ... remainder
     }
 }
 ```
 
-of course this kind of configuration is limited as you cannot name your config file's keys as per any java keywords.
+in main:
+```java
+import sks.utilities.config_reader.ConfigReader;
+
+import your.package_name.ConfigClass;
+
+public class SampleDriver {
+    
+    public static void main(String[] args) {
+        ConfigReader.startReading(ConfigClass.class);
+        int retries = ConfigClass.retry;
+        // ... remainder
+    }
+}
+```
+
+of course this kind of configuration is limited as you cannot name your config file's keys as per any java keywords. But doing that is anyway a bad idea!
+so, having an opinionated approach here.
 
 ## Providing configuration file's path to your class/interface
 
@@ -101,9 +95,9 @@ public class ConfigClassExampleTwo {}
 public class ConfigClassExampleThree {}
 
 @ConfigFilePath('~/Applications/Config-Reader/src/main/resources/app-config.json')    // assumes config file from absolute path, i.e. any path starting from [A-Z]:/ (windows drives paths like C:/, D:\) or [~, /] (unix home and root paths) will be considered absolute paths
-public interface ConfigInterfaceExampleOne {}
+public interface ConfigClassExampleFour {}
 ```
 
 Oncoming: 
-1) Authorize the config modifier person/token before config change (currently this can be done by unix user groups).
-2) Maintain a history of config change.
+1) Authorize the config modifier person/token/bot before config change (currently this can be done by unix user groups).
+2) Maintain a history of config change (git does it anyway).
