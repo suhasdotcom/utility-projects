@@ -43,6 +43,10 @@ public class ConfigClass
         public static String name;
     }
     public static int otherInnerSize;   // other.inner.size converted to otherInnerSize. Another way to specify grouping
+    
+    public static double someBusinessMethod() { // Specify any methods (must be static)
+        return retry*multiple;
+    }
 }
 ```
 
