@@ -2,7 +2,7 @@ package sks.utilities.config_reader.config;
 
 import sks.utilities.config_reader.annotations.ConfigFilePath;
 
-@ConfigFilePath("app-config.cfg")
+@ConfigFilePath(":test/resources/app-config.cfg")
 public class ConfigClass
 {
     public static int retry;            // all entries are public static so that you don't need to create unnecessary objects
