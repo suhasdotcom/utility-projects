@@ -71,7 +71,7 @@ public class ConfigurationFileSourceProviderTest
         {
             final IllegalFileSourcePatternException illegalFileSourcePatternException =
                     assertThrows(IllegalFileSourcePatternException.class, () -> ConfigurationFileSourceProvider.getConformingFileSource(fileName));
-            assertEquals(String.format(IllegalFileSourcePatternException.ERROR_DETAIL, fileName), illegalFileSourcePatternException.getMessage());
+            assertEquals(String.format(IllegalFileSourcePatternException.ERROR_DETAIL_STR, fileName), illegalFileSourcePatternException.getMessage());
         }
     }
 }
