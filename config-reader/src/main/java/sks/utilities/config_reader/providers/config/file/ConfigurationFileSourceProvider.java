@@ -58,6 +58,6 @@ public enum ConfigurationFileSourceProvider implements ConfigurationSourceProvid
 
     @Override
     public String getConfigurationSource() {
-        return null;
+        return "FileSource";
     }
 }
