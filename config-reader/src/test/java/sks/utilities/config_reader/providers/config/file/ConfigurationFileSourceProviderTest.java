@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("ConfigurationFileSourceProvider should")
 public class ConfigurationFileSourceProviderTest
 {
-    @DisplayName("MAIN_CLASSPATH_LIKE should")
     @Nested
+    @DisplayName("MAIN_CLASSPATH_LIKE should")
     class MAIN_CLASSPATH_LIKE_Test
     {
         @ParameterizedTest
@@ -35,8 +35,8 @@ public class ConfigurationFileSourceProviderTest
         }
     }
 
-    @DisplayName("PROJECT_SOURCE should")
     @Nested
+    @DisplayName("PROJECT_SOURCE should")
     class PROJECT_SOURCE_Test
     {
         @ParameterizedTest
@@ -59,19 +59,19 @@ public class ConfigurationFileSourceProviderTest
         }
     }
 
-    @DisplayName("IllegalFileSourceException should")
     @Nested
+    @DisplayName("IllegalFileSourceException should")
     class IllegalFileSourcePatternExceptionTest
     {
         @ParameterizedTest
         @DisplayName("throw exceptions when encountering unregistered file patterns - positive test")
         @ValueSource(strings = {"/:app-config.cfg", "//:appConfig.properties", "<:someDir/app-conf.conf>", "</someDir/Configuration_New.json",
                 ":>/someDir/_filename-name-1.yaml<"})
-        public void testSimpleFileNamePattern(String fileName)
+        public void testSimpleFileNamePattern(String filePath)
         {
             final IllegalFileSourcePatternException illegalFileSourcePatternException =
-                    assertThrows(IllegalFileSourcePatternException.class, () -> ConfigurationFileSourceProvider.getConformingFileSource(fileName));
-            assertEquals(String.format(IllegalFileSourcePatternException.ERROR_DETAIL_STR, fileName), illegalFileSourcePatternException.getMessage());
+                    assertThrows(IllegalFileSourcePatternException.class, () -> ConfigurationFileSourceProvider.getConformingFileSource(filePath));
+            assertEquals(IllegalFileSourcePatternException.makeErrorMessageFrom(filePath), illegalFileSourcePatternException.getMessage());
         }
     }
 }
