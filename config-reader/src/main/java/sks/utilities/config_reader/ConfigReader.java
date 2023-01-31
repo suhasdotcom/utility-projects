@@ -17,7 +17,7 @@ public class ConfigReader
         System.out.println(configDescriptor.getDeclaredAnnotation(ConfigFilePath.class).value());
         try {
             configDescriptor.getDeclaredField("retry").set(null, 1);
-            System.out.println(configDescriptor.getDeclaredField("retry"));
+            System.out.println("From ConfigReader: " + configDescriptor.getDeclaredField("retry"));
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
