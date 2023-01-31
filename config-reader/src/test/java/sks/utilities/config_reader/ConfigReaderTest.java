@@ -20,7 +20,6 @@ class ConfigReaderTest
     @DisplayName("Get correct config file")
     class GetCorrectConfigFile
     {
-
         private String filePath;
 
         @BeforeEach
