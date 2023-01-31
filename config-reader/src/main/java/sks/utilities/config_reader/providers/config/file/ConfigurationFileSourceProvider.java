@@ -1,5 +1,6 @@
 package sks.utilities.config_reader.providers.config.file;
 
+import sks.utilities.config_reader.exceptions.providers.config.file.IllegalFileSourcePatternException;
 import sks.utilities.config_reader.providers.config.ConfigurationSourceProvider;
 
 import java.io.File;
@@ -41,6 +42,14 @@ public enum ConfigurationFileSourceProvider implements ConfigurationSourceProvid
 
     public Path getConfiguredPath(final String filePath) {
         return getConfigurationFileSourceFunc().apply(filePath);
+    }
+
+    public static ConfigurationFileSourceProvider getConformingFileSource(final String intendedFilePath) {
+        for(final ConfigurationFileSourceProvider c: ConfigurationFileSourceProvider.values())
+            if(c.getValidationFunc().test(intendedFilePath))
+                return c;
+
+        throw new IllegalFileSourcePatternException(intendedFilePath);
     }
 
     public String getCurrentDir() {
