@@ -1,6 +1,6 @@
 package sks.utilities.config_reader;
 
-import sks.utilities.config_reader.annotations.ConfigFilePath;
+import sks.utilities.config_reader.annotations.config.file.ConfigFilePath;
 
 @ConfigFilePath("relative-path-to-config-file")
 public class ConfigClass
