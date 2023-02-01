@@ -1,5 +1,7 @@
 package sks.utilities.config_reader.annotations.validate;
 
+import sks.utilities.commons.base.NullEnum;
+
 public @interface ValueIn {
     short[] shorts() default {};
 
@@ -20,8 +22,8 @@ public @interface ValueIn {
     String[] strings() default {};
 
     Class<?>[] classes() default {};
-    Class<? extends Enum<?>> enums() default NullEnum.class;
-    Class<? extends Enum<?>> excludeEnumValues() default NullEnum.class;
 
-    enum NullEnum {}
+    Class<? extends Enum<?>> enums() default NullEnum.class;
+
+    Class<? extends Enum<?>> excludeEnumValues() default NullEnum.class;
 }
