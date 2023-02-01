@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import sks.utilities.config_reader.annotations.ConfigFilePath;
+import sks.utilities.config_reader.annotations.config.file.ConfigFilePath;
 import sks.utilities.config_reader.config.ConfigClass;
 import sks.utilities.config_reader.providers.config.file.ConfigurationFileSourceProvider;
 
