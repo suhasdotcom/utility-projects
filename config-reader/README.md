@@ -102,6 +102,25 @@ public class ConfigClassExampleThree {}
 public interface ConfigClassExampleFour {}
 ```
 
+## Validate your config
+
+```java
+import sks.utilities.config_reader.annotations.config.database.ConfigKeyValueTable;
+import sks.utilities.config_reader.annotations.validate.ValueBetween;
+
+@ConfigKeyValueTable("THE_CONFIG_TABLE")
+public class DatabaseLoadedConfigExample {
+    @ValueBetween(ints={1, 10})
+    public static volatile int someIntValueBetween1And10;   // int value to be validated between 1 (inclusive) and 10 (exclusive) with the default integer difference of 1
+    
+    @ValueBetween(ints={2, 10, 2})
+    public static volatile int someIntValueBetween2And10;   // int value to be validated between 2 (inclusive) and 10 (exclusive) with the given integer difference of 2
+    
+    @ValueIn(strings={"He", "Him", "His"})
+    public static volatile String hisPronouns;              // validates string for the list of values
+}
+```
+
 Oncoming: 
 1) Authorize the config modifier person/token/bot before config change (currently this can be done by unix user groups).
 2) Maintain a history of config change (git does it anyway).
