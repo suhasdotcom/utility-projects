@@ -1,4 +1,4 @@
-package sks.utilities.config_reader.annotations;
+package sks.utilities.config_reader.annotations.config.file;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
