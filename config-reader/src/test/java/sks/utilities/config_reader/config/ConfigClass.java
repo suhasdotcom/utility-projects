@@ -14,4 +14,8 @@ public class ConfigClass
         public static volatile String name;
     }
     public static volatile int otherInnerSize;   // other.inner.size converted to otherInnerSize. Another way to specify grouping
+
+    public static double retries() {
+        return retry*multiple;
+    }
 }
