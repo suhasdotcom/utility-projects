@@ -112,10 +112,10 @@ import sks.utilities.config_reader.providers.config.file.ConfigurationFileSource
 
 @ConfigKeyValueTable("THE_CONFIG_TABLE")
 public class DatabaseLoadedConfigExample {
-    @ValueBetween(ints = {1, 10})
+    @ValueBetween(intsRange = {1, 10})
     public static volatile int someIntValueBetween1And10;   // int value to be validated between 1 (inclusive) and 10 (exclusive) with the default integer difference of 1
 
-    @ValueBetween(ints = {2, 10, 2})
+    @ValueBetween(intsRange = {2, 10, 2})
     public static volatile int someIntValueBetween2And10;   // int value to be validated between 2 (inclusive) and 10 (exclusive) with the given integer difference of 2
 
     @ValueIn(strings = {"He", "Him", "His"})
