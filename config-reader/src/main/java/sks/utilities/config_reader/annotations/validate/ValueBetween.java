@@ -1,5 +1,10 @@
 package sks.utilities.config_reader.annotations.validate;
 
+/**
+ * Validator annotation to validate comparables
+ * provide a value for begin, end, difference.
+ * If difference is not specified then value is checked to be in [begin, end), i.e.. begin included and end excluded
+ */
 public @interface ValueBetween {
     char[] charsRange() default {};
     int[] intsRange() default {};
