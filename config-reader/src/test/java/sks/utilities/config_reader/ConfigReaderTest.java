@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import sks.utilities.config_reader.annotations.config.file.ConfigFilePath;
-import sks.utilities.config_reader.config.ConfigClass;
+import sks.utilities.config_reader.config.FileConfigClass;
 import sks.utilities.config_reader.providers.config.file.ConfigurationFileSourceProvider;
 
 import java.nio.file.Paths;
@@ -24,8 +24,8 @@ class ConfigReaderTest
 
         @BeforeEach
         public void setUp() {
-            ConfigReader.startReading(ConfigClass.class);
-            filePath = ConfigClass.class.getDeclaredAnnotation(ConfigFilePath.class).value();
+            ConfigReader.startReading(FileConfigClass.class);
+            filePath = FileConfigClass.class.getDeclaredAnnotation(ConfigFilePath.class).value();
         }
 
         @Test
