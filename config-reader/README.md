@@ -7,7 +7,7 @@ This has caused problems such as hot-fixes which don't even need hot-fixing in c
 ## Solution:
 A config-reader is required which'll poll config file in a lightweight daemon thread and update all the configured values so that hot-fixing just for a configuration change shouldn't be necessary.  
 Features:
-- Atomicity is built for a single config class, if loading one property fails than the full configuration class is not loaded. This disallows partially changed states.
+- Atomicity is built for a single config class, if loading one property fails then the full configuration class is not loaded. This disallows partially changed states.
 - Default values can be provided for an unspecified key in properties.
 - Realised config values can be validated.
 
