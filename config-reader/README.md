@@ -125,7 +125,7 @@ public class DatabaseLoadedConfigExample {
     @ValueIn(strings = {"He", "Him", "His"})
     public static volatile String hisPronouns;              // validates string for the list of values
 
-    @ValueIn(enums = ConfigurationFileSourceProvider.class) // Include all the values of this enum, values can be excluded using excludeEnums key
+    @ValueIn(enums = ConfigurationFileSourceProvider.class) // Include all the values of this enum, values can be excluded using excludeEnums key (specified as an array)
     public static volatile ConfigurationFileSourceProvider configurationFileSourceProvider;
 }
 ```
