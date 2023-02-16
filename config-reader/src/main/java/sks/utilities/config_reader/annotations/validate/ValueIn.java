@@ -34,5 +34,5 @@ public @interface ValueIn {
     /**
      * Exclude enum objects specified
      */
-    Class<? extends Enum<?>> excludeEnumValues() default NullEnum.class;
+    Class<? extends Enum<?>>[] excludeEnumValues() default {NullEnum.class};
 }
