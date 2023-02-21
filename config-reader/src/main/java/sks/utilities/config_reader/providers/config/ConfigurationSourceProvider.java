@@ -1,7 +1,9 @@
 package sks.utilities.config_reader.providers.config;
 
+import sks.utilities.config_reader.model.config_source.ConfigurationSource;
+
 /**
- * Provide {@link sks.utilities.config_reader.model.ConfigurationSource ConfiguratonSource} for different kind of configurations
+ * Provide {@link ConfigurationSource ConfiguratonSource} for different kind of configurations
  */
 public interface ConfigurationSourceProvider
 {
