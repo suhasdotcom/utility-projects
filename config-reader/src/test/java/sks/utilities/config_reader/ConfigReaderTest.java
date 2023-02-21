@@ -6,12 +6,14 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import sks.utilities.config_reader.annotations.config.file.ConfigFilePath;
 import sks.utilities.config_reader.config.FileConfigClass;
+import sks.utilities.config_reader.model.reader.ConfigurationReader;
+import sks.utilities.config_reader.model.reader.file.ConfigurationFileReader;
+import sks.utilities.config_reader.model.repo.ConfigReaderRepository;
 import sks.utilities.config_reader.providers.config.file.ConfigurationFileSourceProvider;
 
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("ConfigReader should")
 class ConfigReaderTest
@@ -41,6 +43,13 @@ class ConfigReaderTest
         @DisplayName("file is read as wanted")
         public void testFileReadCorrectly() {
 
+        }
+
+        @Test
+        @DisplayName("correct reader should get assigned")
+        public void testCorrectReaderAssignment() {
+            final ConfigurationReader configurationReader = ConfigReaderRepository.SINGLETON_DICTIONARY.findByClass(FileConfigClass.class);
+            assertInstanceOf(ConfigurationFileReader.class, configurationReader);
         }
 
         @Test
