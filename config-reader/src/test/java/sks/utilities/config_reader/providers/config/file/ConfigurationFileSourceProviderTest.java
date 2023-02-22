@@ -60,11 +60,11 @@ public class ConfigurationFileSourceProviderTest
     }
 
     @Nested
-    @DisplayName("IllegalFileSourceException should")
+    @DisplayName("handle exceptions")
     class IllegalFileSourcePatternExceptionTest
     {
         @ParameterizedTest
-        @DisplayName("throw exceptions when encountering unregistered file patterns - positive test")
+        @DisplayName("throw IllegalFileSourceException when encountering unregistered file patterns - positive test")
         @ValueSource(strings = {"/:app-config.cfg", "//:appConfig.properties", "<:someDir/app-conf.conf>", "</someDir/Configuration_New.json",
                 ":>/someDir/_filename-name-1.yaml<"})
         public void testSimpleFileNamePattern(String filePath)
