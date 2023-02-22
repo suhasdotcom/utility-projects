@@ -6,12 +6,13 @@ import sks.utilities.config_reader.model.repo.ConfigReaderRepository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Single machine implementation for {@link ConfigReaderRepository}.
- * <a href="https://en.wikipedia.org/wiki/Singleton_pattern">Singleton</a> by nature. Uses a HashMap internally to
- * store the class and {@link ConfigurationReader reader} association. Duplicate keys and inserting duplicate keys
- * is not allowed in this repo. {@link DuplicateConfigurationReaderException} is thrown on encounter.
+ * <a href="https://en.wikipedia.org/wiki/Singleton_pattern">Singleton</a> by nature. Uses a {@link ConcurrentHashMap}
+ * internally to store the class and {@link ConfigurationReader reader} association. Duplicate keys and inserting
+ * duplicate keys is not allowed in this repo. {@link DuplicateConfigurationReaderException} is thrown on encounter.
  *
  * @see DuplicateConfigurationReaderException
  */
@@ -21,7 +22,7 @@ public enum ConfigReaderSingletonDictionary implements ConfigReaderRepository {
      */
     INSTANCE;
 
-    private final Map<String, ConfigurationReader> configurationReaderMap = new HashMap<>();
+    private final Map<String, ConfigurationReader> configurationReaderMap = new ConcurrentHashMap<>();
 
     /**
      * Delegates to {@link HashMap#get(Object)}
