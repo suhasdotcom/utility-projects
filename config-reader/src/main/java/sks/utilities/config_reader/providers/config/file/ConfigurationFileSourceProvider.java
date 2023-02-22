@@ -17,7 +17,7 @@ public enum ConfigurationFileSourceProvider implements ConfigurationSourceProvid
     PROJECT_SOURCE(path -> Pattern.matches(":[a-zA-Z0-9,-./\\\\_]+", path),
             path -> Path.of(getProjectDir(), path.replace(":", ""))),
 
-    ABSOLUTE_PATH(path -> Pattern.matches("(([~/])|([a-zA-z]{1}?:))[a-zA-Z0-9,-./\\\\_]+", path),
+    ABSOLUTE_PATH(path -> Pattern.matches("(([~/])|([a-zA-z]?:))[a-zA-Z0-9,-./\\\\_]+", path),
             Path::of);
 
     private final Function<String, Path> configurationFileSourceFunc;
