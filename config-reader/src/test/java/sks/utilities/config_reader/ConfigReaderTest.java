@@ -49,6 +49,7 @@ class ConfigReaderTest
         @DisplayName("correct reader should get assigned")
         public void testCorrectReaderAssignment() {
             final ConfigurationReader configurationReader = ConfigReaderRepository.SINGLETON_DICTIONARY.findByClass(FileConfigClass.class);
+            assertTrue(ConfigReaderRepository.SINGLETON_DICTIONARY.isReaderAssignedTo(FileConfigClass.class));
             assertInstanceOf(ConfigurationFileReader.class, configurationReader);
         }
 
