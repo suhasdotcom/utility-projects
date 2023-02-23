@@ -4,7 +4,7 @@ import sks.utilities.config_reader.model.reader.ConfigurationReader;
 
 public class DuplicateConfigurationReaderException extends IllegalArgumentException {
 
-    public static final String ERROR_DETAIL_STR = "'%s' Reader already for class '%s' \nReader reassignment " +
+    public static final String ERROR_DETAIL_STR = "'%s' Reader is already assigned for class '%s' \nReader reassignment " +
             "not allowed at runtime. Please go through the (Refreshing) config reader's specifications";
 
     public DuplicateConfigurationReaderException(final String fullClassName, final ConfigurationReader configurationReader) {
