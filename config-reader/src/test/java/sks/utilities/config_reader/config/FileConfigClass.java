@@ -1,8 +1,10 @@
 package sks.utilities.config_reader.config;
 
 import sks.utilities.config_reader.annotations.config.file.ConfigFilePath;
+import sks.utilities.config_reader.annotations.format.KeyValueFormat;
 
 @ConfigFilePath(":test/resources/app-config.cfg")
+@KeyValueFormat
 public class FileConfigClass
 {
     public static volatile int retry;            // all entries are public static so that you don't need to create unnecessary objects
