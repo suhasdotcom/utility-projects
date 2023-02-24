@@ -17,5 +17,5 @@ public @interface ConfigFilePath {
      * The config file's path relative to src/main/resources or src/test/resources
      * in case this is not the file hierarchy, then config file's path from project's root can be given as "/project-dir/sub-dir/../sub-dir/config-file-name.{cfg/properties/json/yaml} etc
      */
-    public String value();
+    String value();
 }
