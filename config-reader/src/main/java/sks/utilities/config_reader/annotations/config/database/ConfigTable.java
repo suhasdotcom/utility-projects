@@ -7,11 +7,11 @@ import java.lang.annotation.Target;
 
 /**
  * This annotation is to be used on the class which will behave as the config database table's/view's value taker in java.
- * The {@link ConfigKeyValueTable#value tableName} is the config database's table/view name
+ * The {@link ConfigTable#value tableName} is the config database's table/view name
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ConfigKeyValueTable {
+public @interface ConfigTable {
     /**
      * The config table/view's name
      */
