@@ -6,7 +6,7 @@ import sks.utilities.config_reader.model.repo.impl.ConfigReaderSingletonDictiona
 /**
  * Repository interface for storing/supplying the ConfigClass ({@link String key}) and {@link ConfigurationReader} (value)
  */
-public interface ConfigReaderRepository {
+public interface ConfigReaderRepository extends Cloneable {
     /**
      * @see ConfigReaderSingletonDictionary
      */

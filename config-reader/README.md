@@ -20,7 +20,7 @@ To install in your project just add the following in POM:
 </dependency>
 ```
 
-## Configuring class file:
+## Configuration description:
 configure the json, yaml, xml, properties file (illustration):
 ```properties
 retry=1
@@ -31,6 +31,7 @@ Other.name=Suyog Srivastava
 other.inner.size = 1
 ```
 
+### Configuring static class with file:
 configure configuration class:
 ```java
 package your.package_name;
@@ -86,7 +87,181 @@ public class SampleDriver {
 ```
 
 of course this kind of configuration is limited as you cannot name your config file's keys as per any java keywords. But doing that is anyway a bad idea!
-so, having an opinionated approach here.
+so, having an opinionated approach here. Also, the class's properties can be changed outside the class to reflect changes if needed.
+
+### Configuring interface with file:
+
+configure configuration class:
+```java
+package your.package_name;
+
+@ConfigFilePath("relative-path-to-config-file")
+public interface ConfigurationInterface {
+    int retry();            
+    default double multiple() { return 1; }          // provide a default value
+    String name();
+    String clazz();
+    interface Other {        // one way to specify property grouping {see Other.name in the config file}
+        String name();
+    }
+    Other other = configurateAndInstantiate(); // This is required for inner interfaces
+    int otherInnerSize();   // other.inner.size converted to otherInnerSize. Another way to specify grouping
+    
+    default double someBusinessMethod() { // Specify any methods
+        return retry*multiple;
+    }
+}
+```
+
+use the configurations in code as:
+```java
+import your.package_name.ConfigInterface;
+import static sks.utilities.config_reader.ConfigReader.configurateAndInstantiate;
+
+public class ConfigurationInterfaceUsageExample {
+    /**
+     * Have the interface's reference. Initialise it here itself as such:
+     * {@snippet :
+     *  ConfigurationInterface ci = configurateAndInstantiate();
+     * }
+     * This approach can also be used to make `ci` `final`. like so:
+     * {@snippet :
+     *  final ConfigurationInterface ci = configurateAndInstantiate();
+     * }
+     * Or make it final and instantiate in the constructor (more flexible and better alternative). like so: 
+     * {@snippet :
+     *  final ConfigurationInterface ci;
+     *  
+     *  ConfigInterfaceUsageExample(<whatever required args>) {
+     *      this(<whatever required args>, configurateAndInstantiate());
+     *  }
+     *  
+     *  ConfigInterfaceUsageExample(<whatever required args>, final ConfigurationInterface configurationInterface) {
+     *      // initialise your class with <whatever required args>
+     *      this.ci = configurationInterface;
+     *  }
+     * }
+     */
+    ConfigurationInterface configurationInterface;
+
+    public ConfigInterfaceUsageExample() {
+        configurationInterface = configurateAndInstantiate();
+    }
+
+    public void businessMethod() {
+        int retryCount = configurationInterface.retry();
+        String otherName = configurationInterface.other.name();
+        // ... remainder
+    }
+}
+```
+
+in main:
+```java
+import sks.utilities.config_reader.ConfigReader;
+
+import your.package_name.ConfigurationInterface;
+
+public class SampleDriver {
+    
+    public static void main(String[] args) {
+        ConfigReader.startReading(ConfigurationInterface.class);
+        // ... remainder
+    }
+}
+```
+
+of course this kind of configuration is limited as you cannot name your config file's keys as per any java keywords. But doing that is anyway a bad idea!
+so, having an opinionated approach here. Also, the class's properties can be changed outside the class to reflect changes if needed.
+
+### Configuring class with file:
+configure configuration class, with no annotation and code generation magic:
+
+```java
+package your.package_name;
+
+import sks.utilities.config_reader.ConfigClass;
+
+public class ConfigurationClass extends ConfigClass {
+    public ConfigurationClass() {
+        super(new FileBasedConfig<JSON>("relative-path-to-config-file"));
+    }
+    public int retry = getKey("retry");
+    public double multiple = getKey("multiple", 1);  // provide a default value
+    public String name = getKey("name");
+    public String clazz = getKey("clazzzzz");       // have the key named differently
+    public final String otherName = getKey("other.name"); // grouping can only be done this way
+
+    public int otherInnerSize = getKey("other.inner.size", valueIn(range(1, 10)));   // validation allowed
+
+    public double someBusinessMethod() { // Specify any methods (must be static)
+        return retry * multiple;
+    }
+}
+```
+
+use the configurations in code as:
+```java
+import your.package_name.ConfigurationClass;
+
+public class ConfigurationClassUsageExample {
+    /**
+     * Have the class's reference. Initialise it here itself as such:
+     * {@snippet :
+     *  ConfigurationClass cc = new ConfigurationClass();
+     * }
+     * This approach can also be used to make `cc` `final`, `static`, `public`, `protected`, `private`. like so:
+     * {@snippet :
+     *  final ConfigurationClass cc = new ConfigurationClass();
+     * }
+     * Or make it final and instantiate in the constructor (more flexible and better alternative). like so: 
+     * {@snippet :
+     *  final ConfigurationClass cc;
+     *
+     *  ConfigurationClassUsageExample(<whatever required args>) {
+     *      this(<whatever required args>, new ConfigurationClass());
+     *  }
+     *
+     *  ConfigurationClassUsageExample(<whatever required args>, final ConfigurationClass configurationClass) {
+     *      // initialise your class with <whatever required args>
+     *      this.ci = configurationClass;
+     *  }
+     * }
+     */
+    ConfigurationClass configurationClass;
+
+    public ConfigurationClassUsageExample() {
+        this(new ConfigurationClass());
+    }
+    
+    public ConfigurationClassUsageExample(ConfigurationClass configurationClass) {
+        this.configurationClass = configurationClass;
+    }
+
+    public void businessMethod() {
+        int retryCount = configurationClass.retry;
+        String otherName = configurationClass.otheName;
+        // ... remainder
+    }
+}
+```
+
+in main:
+```java
+import sks.utilities.config_reader.ConfigReader;
+
+import your.package_name.ConfigClass;
+
+public class SampleDriver {
+    
+    public static void main(String[] args) {
+        ConfigurationClassUsageExample configurationClassUsageExample = new ConfigurationClassUsageExample();
+        int retries = configurationClassUsageExample.retry;
+        // ... remainder
+    }
+}
+```
+
 
 ## Providing configuration file's path to your class/interface
 

@@ -1,5 +1,7 @@
 package sks.utilities.config_reader.annotations.config.file;
 
+import sks.utilities.config_reader.annotations.config.database.ConfigTable;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="19.0.2" class="java.beans.XMLDecoder">
+ <object class="beantry.Person">
+  <void property="age">
+   <int>29</int>
+  </void>
+  <void property="name">
+   <string>Suhas</string>
+  </void>
+ </object>
+</java>
