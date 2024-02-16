@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  * Use the utility class for easy testing.
  */
 public class TestPrep {
-    public static <T> T jsoFileToData(final String filePath, final Class<T> jsonClass) {
+    public static <T> T jsonFileToData(final String filePath, final Class<T> jsonClass) {
         ObjectMapper mapper = new ObjectMapper();
         try (InputStream is = new FileInputStream(filePath)) {
             return mapper.readValue(is, jsonClass);
@@ -56,6 +56,6 @@ public class TestPrep {
     }
 
     private static <T> Function<String, T> fileToDataFunc(final Class<T> s) {
-        return t -> jsoFileToData(t, s);
+        return t -> jsonFileToData(t, s);
     }
 }
