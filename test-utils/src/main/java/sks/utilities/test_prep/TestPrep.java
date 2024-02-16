@@ -1,6 +1,7 @@
 package sks.utilities.test_prep;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,19 +9,29 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
  * Use the utility class for easy testing.
  */
 public class TestPrep {
-    public static <T> T jsonFileToData(final String filePath, final Class<T> jsonClass) {
+    /**
+     * Always statically initialise testDirectory or any other {@link TestPrep} resource because its
+     * methods need to be called statically in JUnit's {@link MethodSource}. The same can be done in a static block.
+     */
+    public static Path testDirectory;
+
+    /**
+     * Get JSON data from a file.
+     * @param filePath filePath
+     * @param jsonClass Class this File should conform to.
+     * @return Instance of {@link T} initialised from filePath.
+     * @param <T> Type this jsonFile should conform to.
+     */
+    public static <T> T jsonFileToData(final String filePath, final Class<T> jsonClass) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         try (InputStream is = new FileInputStream(filePath)) {
             return mapper.readValue(is, jsonClass);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -38,24 +49,15 @@ public class TestPrep {
     }
 
     /**
-     * Returns a {@link List<T>} because we may want to supply duplicate data in some files for load testing, maybe.
-     * @param testDir the test directory where all the JSON files are stored for testing.
-     * @param tClass Class to conform JSON into.
-     * @return {@link List<T>} from reading all the JSON files in the given testDir.
-     * @param <T> Type of data to conform to provided JSON files.
+     * List all the *.json files in the {@link TestPrep#testDirectory} directory.
+     * @return String path to all json files in {@link #testDirectory}.
      */
-    public static <T> List<T> jsonTestData(final Path testDir, final Class<T> tClass) throws IOException {
-        try (Stream<Path> theStream = Files.list(testDir)) {
+    public static List<String> jsonFilesInDir() throws IOException {
+        try (Stream<Path> theStream = Files.list(testDirectory)) {
             return theStream.filter(Files::isRegularFile)
                     .filter(path -> path.getFileName().toString().endsWith(".json"))
-                    .map(Path::toAbsolutePath)
                     .map(Path::toString)
-                    .map(fileToDataFunc(tClass))
                     .toList();
         }
-    }
-
-    private static <T> Function<String, T> fileToDataFunc(final Class<T> s) {
-        return t -> jsonFileToData(t, s);
     }
 }
