@@ -36,19 +36,6 @@ public class TestPrep {
     }
 
     /**
-     * Print a two-D matrix on screen.
-     * @param theMatrix two-D matrix.
-     * @param <T> Type of the matrix.
-     */
-    public static <T> void printMatrix(final T[][] theMatrix) {
-        for (T[] row : theMatrix) {
-            for (T col : row)
-                System.out.print(col + " ");
-            System.out.println();
-        }
-    }
-
-    /**
      * List all the *.json files in the {@link TestPrep#testDirectory} directory.
      * @return String path to all json files in {@link #testDirectory}.
      */
