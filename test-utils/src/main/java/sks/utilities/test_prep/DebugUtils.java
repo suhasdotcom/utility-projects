@@ -60,4 +60,8 @@ public class DebugUtils {
             return (k, v) -> System.out.println(k + " -> " + v);
         return (k, v) -> {};
     }
+
+    public static void println(final String s) {
+        if(debugEnabled) System.out.println(s);
+    }
 }
