@@ -1,5 +1,6 @@
 package sks.utilities.test_prep;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -59,6 +60,10 @@ public class DebugUtils {
         if(debugEnabled)
             return (k, v) -> System.out.println(k + " -> " + v);
         return (k, v) -> {};
+    }
+
+    public static <K, V> void printMap(final Map<K, V> theMap) {
+        theMap.forEach(printPair());
     }
 
     public static void println(final String s) {
