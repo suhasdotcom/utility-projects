@@ -55,7 +55,7 @@ public class DebugUtils {
         }
     }
 
-    public static <K, V> BiConsumer<K, V> printMap() {
+    public static <K, V> BiConsumer<K, V> printPair() {
         if(debugEnabled)
             return (k, v) -> System.out.println(k + " -> " + v);
         return (k, v) -> {};
