@@ -69,4 +69,8 @@ public class DebugUtils {
     public static void println(final String s) {
         if(debugEnabled) System.out.println(s);
     }
+
+    public static void println() {
+        if(debugEnabled) System.out.println();
+    }
 }
