@@ -2,8 +2,11 @@ package sks.utilities.test_prep;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Utilities that can be used to debug code output.
@@ -66,11 +69,26 @@ public class DebugUtils {
         theMap.forEach(printPair());
     }
 
+    public static <T> void printSet(final Set<T> theSet) {
+        if(debugEnabled) {
+            String strRepr = theSet.stream().map(String::valueOf)
+                    .collect(Collectors.joining(", ", "{", "}"));
+            System.out.println(strRepr);
+        }
+    }
+
+    public static final Consumer<Object> println = debugWrap(System.out::println);
+
     public static void println(final String s) {
-        if(debugEnabled) System.out.println(s);
+        println.accept(s);
     }
 
     public static void println() {
         if(debugEnabled) System.out.println();
+    }
+
+    private static <T> Consumer<T> debugWrap(Consumer<T> o) {
+        if(debugEnabled) return o;
+        return (T) -> {};
     }
 }
